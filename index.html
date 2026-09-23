@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internet Wiz Group, LLC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0d14;
+      --bg2: #0f1520;
+      --card: #131b2e;
+      --accent: #3b82f6;
+      --accent2: #6366f1;
+      --glow: rgba(59,130,246,0.18);
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --border: rgba(59,130,246,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(10,13,20,0.8);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #60a5fa, #818cf8);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      font-weight: 500; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(59,130,246,0.22) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(99,102,241,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 999px; padding: 0.35rem 1rem;
+      font-size: 0.75rem; font-weight: 600; color: #93c5fd;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800; letter-spacing: -0.04em; line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    h1 .line2 {
+      background: linear-gradient(135deg, #60a5fa 0%, #818cf8 50%, #a78bfa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      max-width: 600px; color: var(--muted); font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #fff; border: none; border-radius: 8px;
+      padding: 0.8rem 2rem; font-size: 0.95rem; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      box-shadow: 0 0 24px rgba(99,102,241,0.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 36px rgba(99,102,241,0.5); }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.8rem 2rem; font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; text-decoration: none; transition: border-color .2s, color .2s;
+    }
+    .btn-secondary:hover { border-color: #60a5fa; color: #60a5fa; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: #60a5fa; margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+    }
+    .section-desc { color: var(--muted); max-width: 540px; margin-bottom: 3rem; }
+
+    /* ── ABOUT ── */
+    #about { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media(max-width:768px){ #about { grid-template-columns: 1fr; } }
+    .about-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 1.25rem; text-align: center;
+    }
+    .stat-card .num { font-size: 1.75rem; font-weight: 800; color: #60a5fa; }
+    .stat-card .lbl { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+
+    /* ── SERVICES ── */
+    #services { text-align: center; }
+    #services .section-desc { margin: 0 auto 3rem; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;
+    }
+    .service-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 2rem; text-align: left; position: relative; overflow: hidden;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(59,130,246,0.4);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.1);
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, #3b82f6, #6366f1);
+      opacity: 0; transition: opacity .25s;
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1rem;
+    }
+    .service-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.875rem; color: var(--muted); }
+    .coming-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(99,102,241,0.15); color: #a78bfa;
+      border: 1px solid rgba(99,102,241,0.3); border-radius: 999px;
+      padding: 0.15rem 0.6rem; margin-bottom: 0.75rem;
+    }
+
+    /* ── VALUES ── */
+    #values { background: var(--bg2); border-radius: 24px; text-align: center; }
+    #values .section-desc { margin: 0 auto 3rem; }
+    .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+    .value-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+    }
+    .value-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .value-card h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .value-card p { font-size: 0.8rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    .contact-box {
+      max-width: 600px; margin: 0 auto;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3rem 2.5rem;
+      box-shadow: 0 0 48px rgba(59,130,246,0.07);
+    }
+    .contact-box p { color: var(--muted); margin-bottom: 2rem; }
+    .contact-email {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: linear-gradient(135deg, #3b82f6, #6366f1);
+      color: #fff; text-decoration: none; border-radius: 10px;
+      padding: 0.9rem 2.25rem; font-size: 1rem; font-weight: 600;
+      box-shadow: 0 0 28px rgba(99,102,241,0.35);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .contact-email:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(99,102,241,0.5); }
+    .contact-note { margin-top: 1.5rem; font-size: 0.8rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border); text-align: center;
+      padding: 2rem; color: var(--muted); font-size: 0.8rem;
+    }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ── SCROLL FADE ── */
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Internet Wiz Group</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge"><span></span>Now Established · LLC</div>
+    <h1>
+      Technology, Privacy &amp;<br>
+      <span class="line2">Digital Solutions</span>
+    </h1>
+    <p class="hero-sub">
+      Internet Wiz Group, LLC helps people and small businesses use technology more safely, privately, and effectively.
+    </p>
+    <div class="hero-cta">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ABOUT -->
+  <section id="about" class="fade-in">
+    <div class="about-text">
+      <div class="section-label">About Us</div>
+      <h2>Built on Experience.<br>Focused on You.</h2>
+      <p>
+        Founded by Nathan Cheung, Internet Wiz Group, LLC is a flexible technology and consulting company with roots in internet marketing and affiliate marketing, expanded into wellness and medical-device products, and now transitioning toward cybersecurity, digital privacy, and IT consulting.
+      </p>
+      <p>
+        We combine real-world business experience with practical technology guidance — no unnecessary complexity, just solutions that work.
+      </p>
+      <div class="about-stat-grid">
+        <div class="stat-card"><div class="num">LLC</div><div class="lbl">Established Entity</div></div>
+        <div class="stat-card"><div class="num">3+</div><div class="lbl">Business Verticals</div></div>
+        <div class="stat-card"><div class="num">1:1</div><div class="lbl">Personal Service</div></div>
+        <div class="stat-card"><div class="num">SMB</div><div class="lbl">Focused Clientele</div></div>
+      </div>
+    </div>
+    <div class="about-img" style="display:flex;flex-direction:column;gap:1rem;">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+        <div style="font-size:0.75rem;color:#60a5fa;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">Mission</div>
+        <p style="color:var(--muted);font-size:0.9rem;">To help individuals and small businesses use technology more safely, privately, and effectively through practical cybersecurity, privacy, IT, and digital business solutions.</p>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;">
+        <div style="font-size:0.75rem;color:#818cf8;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;">Vision</div>
+        <p style="color:var(--muted);font-size:0.9rem;">To become a trusted, adaptable technology resource for people and businesses seeking better privacy, stronger security, reliable IT systems, and practical digital solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- SERVICES -->
+  <section id="services" style="max-width:1100px;margin:0 auto;padding:5rem 2rem;" class="fade-in">
+    <div style="text-align:center;">
+      <div class="section-label">What We Do</div>
+      <h2>Services &amp; Capabilities</h2>
+      <p class="section-desc" style="margin:0 auto 3rem;">A growing portfolio of technology services for individuals and small businesses — some established, more coming soon.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(59,130,246,0.12);">🔐</div>
+        <h3>Cybersecurity &amp; Privacy</h3>
+        <p>Basic security planning, online exposure assessments, privacy reviews, and personal information management to keep you safer online.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(99,102,241,0.12);">🛡️</div>
+        <h3>Data Broker Removal</h3>
+        <p>Assistance with data-broker opt-out processes, reducing your digital footprint, and managing what information is publicly accessible about you.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(139,92,246,0.12);">🔑</div>
+        <h3>Account &amp; Device Security</h3>
+        <p>Password management guidance, multi-factor authentication setup, and practical security improvements for your accounts and devices.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(59,130,246,0.12);">💻</div>
+        <h3>IT Support &amp; Consulting</h3>
+        <p>Computer, network, and general IT assistance for individuals and small businesses. Practical recommendations that fit your needs and budget.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(99,102,241,0.12);">🗄️</div>
+        <div class="coming-badge">Coming Soon</div>
+        <h3>NAS &amp; Private Storage</h3>
+        <p>Guidance on setting up private data storage, backup strategies, file organization, and data-protection planning using NAS and other solutions.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(245,158,11,0.12);">🌿</div>
+        <div class="coming-badge" style="background:rgba(245,158,11,0.12);color:#fbbf24;border-color:rgba(245,158,11,0.3);">Available</div>
+        <h3>Wellness &amp; Medical Products</h3>
+        <p>Representation and sales of wellness and medical-device products. Interested in learning more or becoming a customer? Reach out directly.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(59,130,246,0.12);">📈</div>
+        <h3>Digital Marketing &amp; Online Business</h3>
+        <p>Digital marketing strategy, affiliate marketing guidance, and online business consulting drawing on years of hands-on experience.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon" style="background:rgba(139,92,246,0.12);">🤝</div>
+        <div class="coming-badge">Coming Soon</div>
+        <h3>Technology Consulting</h3>
+        <p>Helping individuals and small businesses select, implement, and manage the right technology solutions for their unique situation.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- VALUES -->
+  <section id="values" class="fade-in" style="max-width:1100px;margin:0 auto;padding:5rem 2rem;">
+    <div style="text-align:center;">
+      <div class="section-label">Core Values</div>
+      <h2>How We Work</h2>
+      <p class="section-desc" style="margin:0 auto 3rem;">Everything we do is grounded in honesty, practicality, and personal service.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-icon">🤝</div><h3>Trust &amp; Integrity</h3><p>Honest, responsible, and understandable guidance — always.</p></div>
+      <div class="value-card"><div class="value-icon">🔒</div><h3>Privacy &amp; Security</h3><p>Protecting your personal information, accounts, devices, and business data.</p></div>
+      <div class="value-card"><div class="value-icon">🛠️</div><h3>Practical Solutions</h3><p>Useful, affordable recommendations appropriate for each client's real needs.</p></div>
+      <div class="value-card"><div class="value-icon">📚</div><h3>Continuous Learning</h3><p>Staying current on technology, cybersecurity risks, privacy tools, and IT practices.</p></div>
+      <div class="value-card"><div class="value-icon">🧑‍💼</div><h3>Personal Service</h3><p>Direct, responsive support tailored to each individual or business.</p></div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CONTACT -->
+  <section id="contact" class="fade-in" style="max-width:1100px;margin:0 auto;padding:5rem 2rem;text-align:center;">
+    <div class="section-label">Get in Touch</div>
+    <h2>Interested? Let's Talk.</h2>
+    <div class="contact-box">
+      <p>
+        Whether you're curious about cybersecurity, digital privacy, IT support, or our wellness and medical-device products — feel free to reach out. No pressure, no complexity. Just a conversation.
+      </p>
+      <a href="mailto:contact@internetwizgroup.com" class="contact-email">
+        📧 &nbsp;contact@internetwizgroup.com
+      </a>
+      <p class="contact-note">
+        Internet Wiz Group, LLC &nbsp;·&nbsp; Founded by Nathan Cheung &nbsp;·&nbsp; Single-Member LLC
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Internet Wiz Group, LLC · All rights reserved.</p>
+    <p style="margin-top:0.4rem;">Helping people and small businesses use technology more safely, privately, and effectively.</p>
+  </footer>
+
+  <script>
+    // Scroll fade-in
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
